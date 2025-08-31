@@ -1,332 +1,238 @@
-# Список - это упорядоченная коллекция элементов, которая может содержать объекты разных типов. Они очень полезны при работе с множеством данных.
+# # a = 5
+# # b = 5
+# # print(not 0)
 
-fruits = ['яблоко', 'банан', 'груша', 'апельсин']
-numbers = [1, 2, 3, 4, 5]
-mixed_list = [1, 'два', 3.0, True]
-# print(type(fruits)) # <class 'list'>
+# # a = "Hello"
+# # b = "h"
+# # print(b in a)
 
-# В даной части мы расмотрим понятия Изменяемые и неизменяемые типы данных в Python
-# Изменяемые (mutable - мьютибл) — объект можно менять «на месте», без создания нового объекта.
-# Неизменяемые (immutable - иммьютибл) — объект после создания изменить нельзя, можно только создать новый: str, int, float
-# s = "hello"
-# s[0] = "H"
-# print(s) # TypeError
+# # is
+# # a = 500
+# # b = 500
+# # # b = a    # True
+# # print(a is b)
 
-# # Переменная — это имя (ярлык, ссылка), которое указывает на объект (данные) в памяти.
-# s = "hello"
-# print(id(s))  # id объекта (адрес в памяти)
+# # a = 300
+# # b = 300
+# # # print(a is b)  # False
 
-# s = "Hello"
-# print(id(s))  # другой id → значит, это уже новый объект
-# # тоже самое происходит и с числами
+# # error_massege = 400
 
-
-# Доступ к элементам списка
-# Чтобы получить доступ к элементам списка, используйте индексацию. Синтаксис обращения по индексу, через квадратные скобки []
-print(fruits[0])  # Вывод: 'яблоко'
-print(numbers[2])  # Вывод: 3
-
-# Изменение элементов списка
-# Списки можно изменять, например мы можем заменить объект по индексу
-fruits[1] = 'киви'
-print(fruits)  # Вывод: ['яблоко', 'киви', 'груша', 'апельсин']
-
-# Добавление и удаление элементов
-# Чтобы добавить элемент в конец списка, используйте метод append().
-
-fruits.append('ананас')
-print(fruits)  # Вывод: ['яблоко', 'киви', 'груша', 'апельсин', 'ананас']
-
-# Чтобы удалить элемент по индексу, используйте del.
-del fruits[2]
-print(fruits)  # Вывод: ['яблоко', 'киви', 'апельсин', 'ананас']
-
-# clear() Метод очищает список. Параметров нет.
-l = [1, 2, 3]
-l.clear()
-print(l)  # []
-
-# copy() - Метод возвращает копию списка. Параметров нет.
-l = [1, 2, 3]
-l2 = l.copy()
-print(l is l2)  # False Вернемся к этому оператору после функций
-print(l == l2)  # True
-
-# count(elem) - Метод считает сколько раз в списке встречается указанный элемент. Параметр один, что ищем.
-l = [1, 2, 3, 1, 1]
-print(l.count(1))  # 3
-print(l.count(2))  # 1
-print(l.count(5))  # 0
-
-# extend(collection) - Метод расширяет список другой коллекцией (пока читаем другим списком). Параметр один, принимает коллекцию (например список).
-l1 = [1, 2, 3]
-l2 = ['a', 'b']
-l1.extend(l2)
-print(l1)  # [1,2,3,'a','b']
-
-# index(elem) Метод возвращает индекс указанного элемента, если элемент не найден, вызывает исключение ValueError. Параметр один, что ищем, можно указать дополнительные параметры через запятую, от какого элемента искать, и до какого.
-
-l = [1, 2, 3]
-print(l.index(2))  # 1 - помним что счет начинается с 0
-print(l.index(4))  # Вызовет ValueError
-l.index(3, 0, 1)  # Вызовет ValueError, потому что в списке ограниченном индексами 0 и 1 нет элемента 3
-
-# insert(pos, elem) - Метод добавляет объект на указанное место. Параметра два, на какое место, и какой элемент добавить.
-
-l = [1, 2, 3]
-l.insert(1, 4)
-print(l)  # [1, 4, 2, 3]
-
-# pop(pos) - Метод "вытаскивает" элемент из указанной позиции, если позиция не указана, вытаскивает последний. Параметр один, позиция элемента и он не обязательный.
-l = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-last_elem = l.pop()
-elem_num_4 = l.pop(3)
-print(l)  # [1,2,3,5,6,7,8]
-print(last_elem)  # 9
-print(elem_num_4)  # 4
-
-# remove(elem) - Метод удаляет элемент есть находит его в списке. Параметр один, значение элемента.
-l = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-l.remove(4)
-print(l)  # [1,2,3,5,6,7,8,9]
-l.remove('a')  # вызовет ValueError
-
-# reverse() - Метод разворачивает список. Параметров нет.
-l = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-l.reverse()
-print(l)  # [9, 8, 7, 6, 5, 4, 3, 2, 1]
-# Внимание reverse() ничего не возвращает, если сделать a=l.reverse() в переменной a не будет списка! Измениться оригинал
-
-# sort() - Метод сортирует список. Параметров два, но детально мы будем его рассматривать в лекции по алгоритмам, там много деталей.
-l = [3, 5, 1, 2]
-l.sort()
-print(l)  # [1, 2, 3, 5]
-# Тут тоже меняется оригинал
+# # # match error_massege:
+# # #     case 400:
+# # #         print("Vad request")
+# # #     case 401:
+# # #         print("Unaothorized")
+# # #     case 402:
+# # #         print("Not fopund")
 
 
-# Доступ к символам строки
-text = "Hello, World!"
-print(text[0])  # Вывод: 'H'
+# # # value = 5
+# # value = input("Что-то введите: ")
+# # match value:
+# #     case str():
+# #         print("Это строка")
+# #     case int():
+# #         print("Это целое число")
 
-# str.upper() и str.lower() - Метод upper() преобразует все символы строки в верхний регистр, а lower() - в нижний.
-text = "Привет, мир!"
-uppercase = text.upper()  # Результат: "ПРИВЕТ, МИР!"
-lowercase = text.lower()  # Результат: "привет, мир!"
+# # point = (3, 0)
 
-# str.strip() - Метод strip() удаляет пробелы и символы перевода строки с начала и конца строки.
+# # match point:
+# #     case (0, 0):
+# #         print("Ты в начальнрй точки координат")
+# #     case (x, 0):
+# #         print("Ты двигаешся по горизонтальной оси")
+# #     case (0, y):
+# #         print("Ты двигаешся по вертикальной оси")
+# #     case (x, y):
+# #         print(f"твои кадинаты по оси Х: {x}, а по оси y: {y}")
 
-text = "   Текст с лишними пробелами   "
-stripped_text = text.strip()  # Результат: "Текст с лишними пробелами"
+# # num = 22
 
-# Символы перевода строки
-# \n — newline, используется в Linux и macOS
-# \r\n — carriage return + newline, используется в Windows
-# \r — старый стиль Mac OS (редко)
-text = "Hello\nWorld"
-print(text)
-
-text = "   Hello\n"
-clean_text = text.strip()
-print(repr(clean_text))  # 'Hello'
-print(repr(text)) # '   Hello\n'
-
-# str.split() - Метод split() разбивает строку на список подстрок, используя разделитель.
-text = "Яблоки, Груши, Бананы"
-fruits = text.split(", ")  # Результат: ['Яблоки', 'Груши', 'Бананы']
-
-# str.replace() - Метод replace() заменяет все вхождения подстроки на другую подстроку.
-text = "Привет, мир!"
-new_text = text.replace("мир", "вселенная")  # Результат: "Привет, вселенная!"
-
-# str.find() и str.index() - Методы find() и index() находят первое вхождение подстроки в строку и возвращают индекс этого вхождения. Разница между ними в том, что find() возвращает -1, если подстрока не найдена, а index() вызывает исключение.
-text = "Это пример текста с примерами"
-index1 = text.find("пример")  # Результат: 4
-index2 = text.index("пример")  # Результат: 4
-index3 = text.find("нет")  # Результат: -1
-index4 = text.index("нет")  # Вызовет ValueError
-
-#str.count() - Метод count() подсчитывает количество вхождений подстроки в строку.
-text = "Это пример текста с примерами"
-count = text.count("пример")  # Результат: 2
-
-# str.startswith() и str.endswith() - Методы startswith() и endswith() проверяют, начинается ли строка с указанной подстроки или заканчивается ей.
-text = "Это пример текста"
-starts_with = text.startswith("Это")  # Результат: True
-ends_with = text.endswith("текста")  # Результат: True
-
-# str.join() - Метод join() объединяет список строк с помощью текущей строки в качестве разделителя.
-# fruits = ['Яблоки', 'Груши', 'Бананы']
-# text = ', '.join(fruits)  # Результат: "Яблоки, Груши, Бананы"
-# Split превратит строку в список, join превратит список в строку
+# # match num:
+# #     case a if a % 2 == 0:
+# #         print(f"Твоё число {num} - чётное")
+# #     case n if n % 2 != 0:
+# #         print(f"Твоё число {num} - нечётное")
 
 
-# Использование метода str.format().
-# age = 30
-# text = f"Привет, меня зовут {name} и мне {age} лет."
-# print(text)  # Привет, меня зовут Иван и мне 30 лет.
+# # str1 = "Hello"
+# # print(str1, id(str1))
+# # str1 = "Ahoj"
+# # # str1[2] = "G"
+# # # print(str1)
 
-name = "Иван"
-age = 30
-text = "Привет, меня зовут {} и мне {} лет.".format(name, age)
-# Результат: "Привет, меня зовут Иван и мне 30 лет."
+# # print(str1, id(str1))
+
+# # a = 15.5
+# # print(a, id(a))
+
+# # a = 15.5
+# # print(a, id(a))
+
+# fruits = ["orange", "apple", "bannan", "pineapple"]
+# print(fruits[2])
+# # print(id(fruits))
+# fruits.append("potatoes")
+# print(fruits)
+
+# # del fruits[2]
+# # print(fruits)
+
+# # fruits.clear()
+# # print(fruits)
+# # print(id(fruits))
+# fruits2 = fruits.copy()
+# # print(id(fruits2))
+
+# # # fruits2 = fruits
+# # fruits2.append("Car")
+# # # print(id(fruits2))
+# # print(fruits, id(fruits))
+# # print(fruits2, id(fruits2))
+
+# list_num = [45, 14, 45, 52, 1, 45]
+# # print(list_num.count(45))
+# # print(fruits.count("bannan"))
+
+# # fruits.extend(list_num)
+# # print(fruits)
+
+# # print(fruits.index(45))
+
+# # fruits.insert(2, 5.5)
+# # print(fruits)
+
+# # print(fruits.pop())
+# # print(fruits)
+
+# fruits.remove("pineapple")
+# # fruits.remove("pipple") # ValueError:
+# print(fruits)
+
+# fruits.reverse()
+# print(fruits)
+
+# fruits.sort(reverse=True)
+# print(fruits)
+
+# print(len(fruits))
+
+string = "Hello, World! Hello, people"
+# print(len(string))
+# print(string[1])
+
+# print(string.upper())
+# print(string.lower())
+
+# text = "    \nHello! Ahoj! Привет\n       "
+# print(repr(text))
+# newText = text.strip()
+
+# print(newText, repr(newText))
+
+# newList = string.split(", ")
+# print(newList)
+
+# print(string.replace("World", "people"))
+# print(string.find("g")) # -1
+# # print(string.index("g")) # ValueError
+
+# print(string.count("g"))
+
+# print(string.startswith("He"))
+# print(string.endswith("g"))
+
+# # newList = ", ".join(fruits)
+# # print(newList, type(newList))
+
+# name = "Alex"
+# age = 35
+
+# print("Hello, {}! You are {} years old!".format(name, age))
+# print(f"Hello, {name}! You are {age} years old!")
 
 
-# Обратная индексация
-# Для многих коллекций к которым применим индекс можно использовать обратный индекс. Это указание индекса от конца к началу.
+# print(fruits[-1])
+# print(string[-1])
+# print(string[2:-1])
+# print(string[2:])
+# print(string[:2])
+# print(string[::2])
+# newText = string[:]
+# print(newText)
+# print(id(string))
+# print(id(newText))
 
-l = [1, 2, 3]
-print(l[-1])  # 3
-print(l[-2])  # 2
-print(l[-4])  # IndexError
+# fruits = ["orange", "apple", "bannan", "pineapple"]
 
-# Срезы позволяет получить часть коллекции из коллекции, чаще всего применяются к строкам или спискам.
-
-# Синтаксис среза: строка[начало:конец:шаг].
-
-text = "Hello, World!"
-
-substring = text[2:5]  # Получение подстроки "llo"
-print(substring)  # Вывод: 'llo'
-
-substring = text[7:]  # Получение подстроки с 7-го символа до конца
-print(substring)  # Вывод: 'World!'
-
-substring = text[:5]  # Получение подстроки с начала до 5-го символа
-print(substring)  # Вывод: 'Hello'
-
-substring = text[::2]  # Получение каждого второго символа
-print(substring)  # Вывод: 'Hlo ol!'
-
-copy = text[:]  # получение копии строки
-
-# Срезы можно комбинировать с обратными индексами!
-text = "Hello, World!"
-substring = text[:-3]  # Получение подстроки "Hello, Wor" (без 3-х последних символов)
-substring = text[-3:]  # Получение подстроки из 3-х последних символов
-print(substring)  # Вывод: 'ld!'
-
-substring = text[-5:-1]  # Получение 5 последних символов без последнего
-print(substring)  # Вывод: 'orld'
-
-substring = text[::-1]  # Получение строки в обратном порядке
-print(substring)  # Вывод: '!dlroW ,olleH'
-
-
-
-text = "Hello\nWorld\nPython"
-clean = text.replace("\n", "")
-print(clean) 
-
-# Циклы - позволяют выполнять повторяющиеся операции.
-
-# Цикл for используется для итерации по коллекциям, таким как списки и строки (и не только), то есть мы его используем когда точно знаем сколько повторений будет
-fruits = ['яблоко', 'киви', 'груша', 'апельсин']
-for fruit in fruits:
-    print(fruit)
+# for el in fruits:
+#     print(el)
     
-for i in range(5):
-    print(i) # 0 1 2 3 4
+    
+list1 = [45, 14, 47, 78, 45, 45]
+# newLIst = []
+# for el in list1:
+#     if el == 45:
+#         newLIst.append(index(el))
+#         # print(f"Число 45 в списке занимает позицию {list1.index(el)}")
+# print(newLIst)
+
+# for el in range(len(list1)):
+#     if list1[el] == 45:
+#         print(f"Число 45 в списке занимает позицию {el}")
+
+# a = 500
+# b = 500
+# print(a is b) # True
+
+# list1  = list(range(0, 10, 2)) # start, stop, step
+# list1  = list(range(0, 10))    # start, stop
+# list1  = list(range(8))        # stop
+# print(list1)
+
+# a = range(45, 85)
+# print(a[-1])    # 84
+
+# enumerate(text, start=5)
+
+# text = "Hello Academy Step!"
+
+# for i in enumerate(text, start=7):
+#     print(i)
 
 
-# for i in range(len(list1)):
-#     if list1[i] == 45:
-#         print(i)
+# for i, num in enumerate(list1):
+#     if num == 45:
+#         print(f"Число 45 в списке занимает позицию {i}")
 
-# Функция range() в Python по умолчанию работает так:
-# range(stop)          # от 0 до stop-1
-# range(start, stop)   # от start до stop-1
-# range(start, stop, step)  # от start до stop-1 с шагом step
+# while
 
-numbers = list(range(5))  # [0, 1, 2, 3, 4]
-print(numbers)
+# count = 1
+# while count > 0:
+#     if count == 10:
+#         break
+#     print(count)
+#     count += 1
 
-a = list(range(4,16,2))
-print(a)
+# import getpass    
+# password = ''
+# while password != "password":
+#     # password = input("Введите пожалуйста пароль, или для выхода введите exit ")
+#     password = getpass.getpass("Введите пожалуйста пароль, или для выхода введите exit ")
+#     if password == "exit":
+#         print("Цыкл остановлен")
+#         break
 
-r = range(5, 10)
-print(r[0])  # 5
-print(r[3])  # 8
 
-# enumerate — это универсальный инструмент для нумерации элементов любого итерируемого объекта,
-text = "hello"
+text = "Hello Academy Step!"
+# list1 = ["aa", "sd", ]
+# for char in text:
+#     if char == "d":
+#         break
+#     print(char)
 
-for index, char in enumerate(text):
-    print(index, char)
-
-text = "hello лолвыло"
-
-for char in enumerate(text, start=5):
+for char in text:
+    if char == "de":
+        continue
     print(char)
-
-# Цикл while выполняется до тех пор, пока условие истинно. 
-    
-count = 0
-while count < 5:
-    print(count)
-    count += 1
-
-password = ""
-while password != "secret":
-    password = input("Введите пароль: ")
-print("Доступ разрешен")
-
-# Ключевое слово break
-# break используется для выхода из цикла досрочно, даже если условие цикла остается истинным. Обычно break используется внутри условия, чтобы определить момент завершения цикла.
-
-count = 0
-
-while count < 5:
-    if count == 3:
-        break  # Выход из цикла, если count равно 3
-    print(count)
-    count += 1
-    
-# Пример с циклом for:
-
-fruits = ['яблоко', 'киви', 'груша', 'апельсин']
-
-for fruit in fruits:
-    if fruit == 'груша':
-        break  # Выход из цикла при нахождении 'груши'
-    print(fruit)
-
-# Ключевое слово continue
-# continue используется для перехода к следующей итерации цикла, игнорируя оставшуюся часть текущей итерации. Обычно continue используется внутри условия для пропуска определенных действий.
-
-# Пример с циклом while:
-
-count = 0
-
-while count < 5:
-    count += 1
-    if count == 3:
-        continue  # Пропустить вывод числа 3
-    print(count)
-    
-# Пример с циклом for:
-
-fruits = ['яблоко', 'киви', 'груша', 'апельсин']
-
-for fruit in fruits:
-    if fruit == 'груша':
-        continue  # Пропустить вывод 'груши'
-    print(fruit)
-    
-# Ключевые слова break и continue полезны при создании более сложной логики в циклах и позволяют управлять потоком выполнения программы в более гибком стиле.
-
-# Бесконечные циклы
-# Иногда может потребоваться создать бесконечный цикл, который будет выполняться до тех пор, пока его не прервут. Для этого используется конструкция while True.
-
-i = True
-while i is True:
-     print(1)
-
-while True:
-    # Этот цикл будет выполняться бесконечно
-    user_input = input("Введите что-нибудь (для выхода наберите 'q'): ")
-    if user_input == 'q':
-        break  # Выход из цикла при вводе 'q'
-# Бесконечные циклы могут быть полезными в тех случаях, когда нужно создать программу, которая работает в фоновом режиме и ожидает какого-либо события, либо когда нужно регулярно выполнять какую-то задачу, например, мониторинг сенсоров или сетевых подключений.
-
-# Не забывайте, что бесконечные циклы должны иметь какой-то механизм для прерывания, иначе программа будет выполняться бесконечно и может привести к зависанию.
-
