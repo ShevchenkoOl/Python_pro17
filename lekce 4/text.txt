@@ -1,0 +1,11 @@
+Obsah kurzu
+Typescript je jeden z nejpoužívanějších jazyků pro vývoj webových aplikací jak na frontendu, tak na backendu. Jde o rozšíření jazyka JavaScript o možnost definovat a kontrolovat datové typy podobně jako v jazycích C# nebo Java.
+
+V kurzu se naučíte:
+
+základy jazyka Typescript a jeho typového systému,
+datové modelování,
+nastavení Typescriptového projektu,
+doporučené postupy pro vývoj webových aplikací v Typescriptu,
+základy parametrických typů (generik),
+jak použít Typescript v Reactu.This is new Text - Hello PythonThis is new Text - Hello Python
