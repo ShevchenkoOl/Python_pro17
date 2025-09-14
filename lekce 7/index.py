@@ -55,8 +55,9 @@
 
 from typing import Dict, Tuple, List
 import json
+import uuid # модуль для генерации ID
 
-Order = Tuple[int, str, int]
+Order = Tuple[str, str, int] # поменял int(первый аргумент который отвечает за id) на str, потомучто генерируем с помощью модуля uuid и получаеться строка например c3f
 
 # orders: Dict[str, Order] = {
 #     "1": (1, "Maria", 1500),
@@ -68,22 +69,26 @@ Order = Tuple[int, str, int]
 #     "7": (7, "Patrik", 32000),
 # }
 with open("data.json", "r", encoding="utf-8") as f:
-    orders: Dict[str, Order] = json.load(f)
+    # orders: Dict[str, Order] = json.load(f)
+    # переписал, поскольку мы работаем с Tuple, а в json файле list, поэтому через временную temporary перемену. меняем анотацию
+    temporary: Dict[str, list] = json.load(f) # обьявляем новую временую переменую temporary, которая отвечает за перевод файла json из list в tuple
+    orders: Dict[str, Order] = {k: tuple(v) for k, v in temporary.items()} # и сразу переводим обратно в tuple
 
-def list_sum(orders: Dict[str, Order]) -> List[float]:
+def list_sum(orders: Dict[str, Order]) -> Tuple[List[int], int]:
     # price = lambda v: v[2]
     # return list(map(price, orders.values()))
     price = [el[2] for _, el in orders.items()]
     total_sum = sum(price)
     return price, total_sum
 
-def add_order(orders: Dict[str, Order], newOrder: Order)->Dict:
-    orders[newOrder[0]] = newOrder
+def add_order(orders: Dict[str, Order], newOrder: Order) -> Dict[str, Order]: # возврат функции сделал глубокую аннотацию
+    orders[str(newOrder[0])] = newOrder
     
     with open("data.json", "w", encoding="utf-8") as f:
-         json.dump({k: list(v) for k, v in orders.items()}, f, ensure_ascii=False)
-
+         json.dump({k: list(v) for k, v in orders.items()}, f, ensure_ascii=False, indent=4) # indent=4 для красивого форматирование json, 4 - это количество отступов от левого края
+    return orders # добавил
 
 print(f"Список потраченных денег{list_sum(orders)}")
-newOrder = (8, "Pasha", 1700)
+new_id = str(uuid.uuid4())[:3] # генерация ID
+newOrder = (new_id, "Pasha", 1700)
 add_order(orders, newOrder)
