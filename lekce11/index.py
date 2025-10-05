@@ -146,7 +146,7 @@ for key, flag in flags.items():
 # n = 16
 # print("Нечётное" if n & 1 else "Чётное")
 
-# __or__(self, other): для оператора | если зотябы один = 1 то  1, если все нули - 0
+# __or__(self, other): для оператора | если xотябы один = 1 то  1, если все нули - 0
 
 # a = 5    # 0101
 # b = 8    # 1000
@@ -301,14 +301,154 @@ print(~flag1)
 
 # банк с кошельками пользователей, где можно складывать, вычитать деньги, сравнивать балансы, и даже использовать объекты как функцию для быстрого пополнения.
 
-class Wallet:
-    def __init__(self, owner, balance=0):
-        self.owner = owner
-        self.balance = balance
-    def __str__(self):
-        return f"Кошелёк {self.owner} с балансом {self.balance}"
+# class Wallet:
+#     def __init__(self, owner, balance=0):
+#         self.owner = owner
+#         self.balance = balance
+#     def __str__(self):
+#         return f"Кошелёк {self.owner} с балансом {self.balance}"
     
-alice = Wallet("Alice", 500)
-honza = Wallet("Honza", 750)
-print(alice)
-print(honza)
+# alice = Wallet("Alice", 500)
+# honza = Wallet("Honza", 750)
+# print(alice)
+# print(honza)
+
+
+# множественное наследование:
+
+# class Auto:
+#     def ride(self):
+#         print("Авто ездит по дорогам")
+        
+# class Boat:
+#     def swim(self):
+#         print("Катер хoдит по воде")
+        
+# class Other(Auto, Boat):
+#     pass
+
+# a = Other()
+# a.ride()
+# a.swim()
+
+# from abc import ABC, abstractmethod
+
+# class Transport(ABC):
+#     @abstractmethod
+#     def move(self):
+#         pass
+    
+# class Auto(Transport):
+#     def move(self):
+#         print("Авто ездит по дорогам")
+        
+#     def __hidden(self):
+#         print("Скрытый тип")
+        
+#     def ride(self):
+#         print("Водителя любят ездить на авто")
+        
+# class Boat(Transport):
+#     def move(self):
+#         print("Катер хoдит по воде")
+    
+#     def __hidden(self):
+#         print("Скрытый тип")
+    
+#     def swim(self):
+#         print("Все любят прогулки на катере")
+        
+# class Other(Auto, Boat):
+#     pass
+
+# a = Other()
+# a.move() # Авто ездит по дорогам
+# a.ride() # Водителя любят ездить на авто
+# a.swim() # Все любят прогулки на катере
+
+
+
+# MIXIN
+# class Car:
+#     def ride(self):
+#         print("Авто ездит по дорогам")
+        
+#     def music(self, song):
+#         print(f"Сейчас играет {song}")
+        
+# c = Car()
+# c.music("Queen") # Сейчас играет Queen
+
+# class MusicMixin:
+#     def music(self, song):
+#         print(f"Сейчас играет {song}")
+        
+# class Smartphone(MusicMixin):
+#     pass
+
+# class Radio(MusicMixin):
+#     pass
+
+# class Car(Smartphone, Radio, MusicMixin):
+#     pass
+
+# c = Car()
+# c.music("Queen") # Сейчас играет Queen
+
+
+
+# Ситуация из жизни: интернет-магазин
+# У нас есть разные классы: User, Product, Order.
+# Мы хотим, чтобы некоторые классы имели:
+#      - логирование действий (Логирование — это процесс сохранения информации о работе программы в файл, консоль или другой источник, чтобы потом можно было понять, что произошло, отследить ошибки или поведение программы.),
+#      - возможность сериализации (Сериализация — это процесс преобразования объекта в формат, который можно сохранить или передать, то есть нам нужно сохранения в JSON, словарь),
+#      -   отметку времени создания.
+import json
+from datetime import datetime 
+
+class SerialMixin:
+    def to_dict(self):
+        return self.__dict__
+    
+    def to_json(self):
+        return json.dumps(self.to_dict(), default=str)
+    
+class TimeMixin:
+    def __init__(self, *args, **kwargs):
+        self.creat = datetime.now()
+        super().__init__(*args, **kwargs)
+        
+class LogMixin:
+    def log(self, message):
+        print(f"[LOG] {datetime.now()} - {message}")
+
+class User(SerialMixin, TimeMixin, LogMixin):
+    def __init__(self, username, email):
+        super().__init__()
+        self.username = username
+        self.email = email
+        
+class Product(SerialMixin, LogMixin):
+    def __init__(self, name, price):
+        super().__init__()
+        self.name = name
+        self.price = price
+
+class Order(SerialMixin, TimeMixin):
+    def __init__(self, user, product):
+        super().__init__()
+        self.user = user
+        self.product = product
+        
+u1 = User("Alice", "example@gmail.com")
+u1.log("Время регистрации: ")
+print(u1.to_dict()) # {'creat': datetime.datetime(2025, 10, 5, 15, 58, 25, 606755), 'username': 'Alice', 'email': 'example@gmail.com'}
+
+o1 = Product("Laptop", 1500)
+o1.log("Товар добавлен") # [LOG] 2025-10-05 16:01:14.028824 - Товар добавлен
+print(o1.to_json())  # {"name": "Laptop", "price": 1500}
+print(o1.to_dict())  # {'name': 'Laptop', 'price': 1500}
+
+
+order = Order(u1.username, o1.name)
+print(order.to_json()) # {"creat": "2025-10-05 16:06:55.081043", "user": "Alice", "product": "Laptop"}
